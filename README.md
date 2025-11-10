@@ -30,10 +30,10 @@ More to come!
 - [ ] Install Brew packages to userspace from list.
 - [ ] Install GNOME extensions from list.
 - [ ] Change `gsettings` defaults:
-    - [ ] No compaitbility check for GNOME. extensions (YOLO)
+    - [X] No compaitbility check for GNOME extensions (YOLO)
 - [ ] Cool Wallpapers pre-loaded.
 - [ ] Set up Nix Package Manager.
-- [ ] MAC address Randomization on WiFi
+- [X] MAC address Randomization on WiFi Scanning
 - [ ] Kernel Same-page Merging (KSM) 
 - [ ] Allow TCP/IP forwarding for SSH tunnel foo (`net.ipv4.ip_forward = 1`)
 - [ ] Configure Firewalld zone for Tailscale
