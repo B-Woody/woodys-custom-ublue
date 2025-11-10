@@ -1,4 +1,4 @@
-# Woody's Custom uBlue 
+# Woody's Custom uBlue 🛹🐧💻
 
 This project is based on the [Universal Blue image template](https://github.com/ublue-os/image-template). If you want to try do something similiar, I suggest starting with the fanstastic tooling that the Universal Blue project have created.  
 
@@ -8,9 +8,9 @@ My intention is to automate and codify my immutable Linux desktop build as much 
 
 Heavily inspired by [Amy OS](https://github.com/astrovm/amyos).
 
-More to come!
+Work in progress! 
 
-## Changes  (on top of `bazzite-gnome`)
+## Changes (on top of `bazzite-gnome`)
 
 * Added DNF packages:
     * tmux
@@ -19,21 +19,31 @@ More to come!
     * socat
     * radeontop
     * node-exporter
+    * podman-compose
 * Swapped `nano` default to a `vim`
 * Enabled `tailscaled.service`
+* Enabled MAC address randomization on WiFi Scanning
+* Disabled Steam auto-start
+* Disabled version compatibility check for GNOME extensions
 
 ## ToDo/Goals/Wishlist
 
 - [ ] Configure `gnome-remote-desktop` (GRD) out of the box.
 - [ ] KVM/libvirt and Cockpit Machines out of the box.
 - [ ] Install Flatpaks to userspace from list.
+    - [X] Add list to git repo
+    - [ ] Automate installation
 - [ ] Install Brew packages to userspace from list.
+    - [X] Add list to git repo
+    - [ ] Automate installation
 - [ ] Install GNOME extensions from list.
+    - [ ] Add list to git repo
+    - [ ] Automate installation
 - [ ] Change `gsettings` defaults:
-    - [X] No compaitbility check for GNOME extensions (YOLO)
-- [ ] Cool Wallpapers pre-loaded.
-- [ ] Set up Nix Package Manager.
-- [X] MAC address Randomization on WiFi Scanning
+    - [X] No compatibility check for GNOME extensions (YOLO)
+- [ ] Cool wallpapers pre-loaded.
+- [ ] Set up Nix package manager.
+- [X] MAC address randomization on WiFi Scanning
 - [ ] Kernel Same-page Merging (KSM) 
 - [ ] Allow TCP/IP forwarding for SSH tunnel foo (`net.ipv4.ip_forward = 1`)
 - [ ] Configure Firewalld zone for Tailscale
