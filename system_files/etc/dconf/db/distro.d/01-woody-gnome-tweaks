@@ -1,0 +1,7 @@
+# Woody's Custom gettings/dconf config changes
+
+# Don't disable extensions when GNOME updates
+[org/gnome/shell]
+disable-extension-version-validation=true
+
+
