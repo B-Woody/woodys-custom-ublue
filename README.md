@@ -1,5 +1,7 @@
 # Woody's Custom uBlue 🛹🐧💻
 
+![Build Woodys Custom uBlue](https://github.com/B-Woody/woodys-custom-ublue/actions/workflows/build.yml/badge.svg)
+
 This project is based on the [Universal Blue image template](https://github.com/ublue-os/image-template). If you want to try do something similiar, I suggest starting with the fanstastic tooling that the Universal Blue project have created.  
 
 This is my custom [bootc](https://github.com/bootc-dev/bootc) image image based on Bazzite (`ghcr.io/ublue-os/bazzite-gnome:stable`) from the Universal Blue Project.
