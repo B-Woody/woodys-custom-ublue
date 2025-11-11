@@ -21,21 +21,16 @@ set -ouex pipefail
 ## Install extra DNF Packages
 dnf5 install -y \
 tmux htop netcat socat radeontop node-exporter podman-compose \
-cockpit{-system,-machines,-ostree,-podman,-selinux,-networkmanager,-storaged}
+cockpit{-system,-machines,-ostree,-podman,-selinux,-networkmanager,-storaged} \
+libvirt-daemon-config-network, libvirt-daemon-kvm, qemu-kvm, virt-install, libguestfs-tools, python3-libguestfs, virt-top
 
 ## Cockpit socket/service intentionally disabled to reduce attack surface until I setup better firewalld config
 # systemctl enable --now cockpit.socket
 
 ## Enable VM/QEMU/libvirt ( same as ujust script )
+## Bazzite seems to ship with libvirt and qemu-kvm installed.
 systemctl enable libvirtd
-rpm-ostree kargs --append-if-missing="kvm.ignore_msrs=1" --append-if-missing="kvm.report_ignored_msrs=0"
-mkdir -p /var/lib/swtpm-localca
-restorecon -rv /var/lib/libvirt
-restorecon -rv /var/log/libvirt
-### Give qemu access to read ISO files from $HOME
-setfacl -m u:qemu:rx $HOME
 systemctl enable bazzite-libvirtd-setup.service
-### Still need to figure out how to: usermod -aG libvirt $USER in Containerfile properly
 
 ## Switch o a far superior default editor
 dnf5 swap -y nano-default-editor vim-default-editor
