@@ -12,7 +12,7 @@ My intention is to automate and codify my immutable Linux desktop build as much 
 
 Heavily inspired by [Amy OS](https://github.com/astrovm/amyos).
 
-Work in progress! 
+Work in progress! Have not re-based my main system yet!
 
 ## Changes (on top of `bazzite-gnome`)
 
@@ -26,6 +26,7 @@ Work in progress!
     * podman-compose
     * `cockpit{-system,-machines,-ostree,-podman,-selinux,-networkmanager,-storaged}`
     * @virtualization
+    * ksmtuned
 * Swapped `nano` default to a `vim`
 * Enabled `tailscaled.service`
 * Enabled MAC address randomization on WiFi Scanning
@@ -33,6 +34,7 @@ Work in progress!
 * Disabled version compatibility check for GNOME extensions
 * Enabled libvirtd.service and bazzite-libvirtd-setup.service 
 * Enabled TCP/IP Forwarding
+* Enabled Kernel Same-page Merging (KSM) with ksmtuned 
 
 ## ToDo/Goals/Wishlist
 
@@ -41,19 +43,19 @@ Work in progress!
 - [X] Cockpit and Cockpit machines etc. out of the box.
 - [ ] Install Flatpaks to userspace from list.
     - [X] Add list to git repo
-    - [ ] Automate installation
+    - [ ] Automate installation (custom ujust)
 - [ ] Install Brew packages to userspace from list.
     - [X] Add list to git repo
-    - [ ] Automate installation
+    - [ ] Automate installation (custom ujust)
 - [ ] Install GNOME extensions from list.
     - [ ] Add list to git repo
-    - [ ] Automate installation
-- [ ] Change `gsettings` defaults:
+    - [ ] Automate installation (custom ujust)
+- [X] Change `gsettings` defaults:
     - [X] No compatibility check for GNOME extensions (YOLO)
 - [ ] Cool wallpapers pre-loaded.
 - [ ] Set up Nix package manager.
 - [X] MAC address randomization on WiFi Scanning
-- [ ] Kernel Same-page Merging (KSM) 
+- [X] Kernel Same-page Merging (KSM) with ksmtuned
 - [X] Allow TCP/IP forwarding for SSH tunnel foo (`net.ipv4.ip_forward = 1`)
 - [ ] Configure Firewalld zone for Tailscale
 - [X] Cool Plymouth Boot + Dracut

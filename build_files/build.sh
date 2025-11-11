@@ -20,7 +20,7 @@ set -ouex pipefail
 
 ## Install extra DNF Packages
 dnf5 install -y \
-tmux htop netcat socat radeontop node-exporter podman-compose \
+tmux htop netcat socat radeontop node-exporter podman-compose ksmtuned \
 cockpit{-system,-machines,-ostree,-podman,-selinux,-networkmanager,-storaged} \
 @virtualization 
 
@@ -31,6 +31,9 @@ cockpit{-system,-machines,-ostree,-podman,-selinux,-networkmanager,-storaged} \
 ## Bazzite seems to ship with libvirt and qemu-kvm installed.
 systemctl enable libvirtd
 systemctl enable bazzite-libvirtd-setup.service
+
+# Kernel Samepage Merging (KSM) for VM RAM savings
+systemctl enable ksmtuned 
 
 # Enable IP forwarding for SSH and VPN foo
 echo "net.ipv4.ip_forward = 1" > /etc/sysctl.d/10-woody-custom.conf
