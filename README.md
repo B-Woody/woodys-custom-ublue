@@ -23,17 +23,20 @@ Work in progress!
     * node-exporter
     * podman-compose
     * `cockpit{-system,-machines,-ostree,-podman,-selinux,-networkmanager,-storaged}`
-    * 
+    * @virtualization
 * Swapped `nano` default to a `vim`
 * Enabled `tailscaled.service`
 * Enabled MAC address randomization on WiFi Scanning
 * Disabled Steam auto-start
 * Disabled version compatibility check for GNOME extensions
+* Enabled libvirtd.service and bazzite-libvirtd-setup.service 
+* Enabled TCP/IP Forwarding
 
 ## ToDo/Goals/Wishlist
 
 - [ ] Configure `gnome-remote-desktop` (GRD) out of the box.
-- [ ] KVM/libvirt and Cockpit Machines out of the box.
+- [X] KVM/libvirt
+- [X] Cockpit and Cockpit machines etc. out of the box.
 - [ ] Install Flatpaks to userspace from list.
     - [X] Add list to git repo
     - [ ] Automate installation
@@ -49,7 +52,7 @@ Work in progress!
 - [ ] Set up Nix package manager.
 - [X] MAC address randomization on WiFi Scanning
 - [ ] Kernel Same-page Merging (KSM) 
-- [ ] Allow TCP/IP forwarding for SSH tunnel foo (`net.ipv4.ip_forward = 1`)
+- [X] Allow TCP/IP forwarding for SSH tunnel foo (`net.ipv4.ip_forward = 1`)
 - [ ] Configure Firewalld zone for Tailscale
 - [ ] Cool Plymouth Boot + Dracut
 

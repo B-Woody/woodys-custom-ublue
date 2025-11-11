@@ -32,6 +32,10 @@ cockpit{-system,-machines,-ostree,-podman,-selinux,-networkmanager,-storaged} \
 systemctl enable libvirtd
 systemctl enable bazzite-libvirtd-setup.service
 
+# Enable IP forwarding for SSH and VPN foo
+echo "net.ipv4.ip_forward = 1" > /etc/sysctl.d/10-woody-custom.conf
+sysctl -p
+
 ## Switch o a far superior default editor
 dnf5 swap -y nano-default-editor vim-default-editor
 
