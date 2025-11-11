@@ -27,7 +27,7 @@ cockpit{-system,-machines,-ostree,-podman,-selinux,-networkmanager,-storaged}
 # systemctl enable --now cockpit.socket
 
 ## Enable VM/QEMU/libvirt ( same as ujust script )
-systemctl enable --now libvirtd
+systemctl enable libvirtd
 rpm-ostree kargs --append-if-missing="kvm.ignore_msrs=1" --append-if-missing="kvm.report_ignored_msrs=0"
 mkdir -p /var/lib/swtpm-localca
 restorecon -rv /var/lib/libvirt
