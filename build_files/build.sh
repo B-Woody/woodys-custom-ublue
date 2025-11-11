@@ -22,7 +22,7 @@ set -ouex pipefail
 dnf5 install -y \
 tmux htop netcat socat radeontop node-exporter podman-compose \
 cockpit{-system,-machines,-ostree,-podman,-selinux,-networkmanager,-storaged} \
-libvirt-daemon-config-network, libvirt-daemon-kvm, qemu-kvm, virt-install, libguestfs-tools, python3-libguestfs, virt-top
+@virtualization 
 
 ## Cockpit socket/service intentionally disabled to reduce attack surface until I setup better firewalld config
 # systemctl enable --now cockpit.socket
