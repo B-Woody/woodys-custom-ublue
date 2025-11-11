@@ -48,11 +48,5 @@ dconf update
 ## Remove autostart files
 rm /etc/skel/.config/autostart/steam.desktop
 
-## Clean package manager cache on ostree stuff
-dnf5 clean all
-ostree container commit
-
-# Clean temporary files
-rm -rf /tmp/*
 
 
