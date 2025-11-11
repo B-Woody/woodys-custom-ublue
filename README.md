@@ -22,6 +22,8 @@ Work in progress!
     * radeontop
     * node-exporter
     * podman-compose
+    * `cockpit{-system,-machines,-ostree,-podman,-selinux,-networkmanager,-storaged}`
+    * 
 * Swapped `nano` default to a `vim`
 * Enabled `tailscaled.service`
 * Enabled MAC address randomization on WiFi Scanning
