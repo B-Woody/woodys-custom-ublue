@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -euo pipefail
+set -ouex pipefail
 
 trap '[[ $BASH_COMMAND != echo* ]] && [[ $BASH_COMMAND != log* ]] && echo "+ $BASH_COMMAND"' DEBUG
 
@@ -21,6 +21,6 @@ KERNEL_VERSION="$(dnf5 repoquery --installed --queryformat='%{evr}.%{arch}' kern
   --add ostree \
   -f "/usr/lib/modules/$KERNEL_VERSION/initramfs.img"
 
-chmod 0600 "/usr/lib/modules/$KERNEL_VERSION/initramfs.img"
+# chmod 0600 "/usr/lib/modules/$KERNEL_VERSION/initramfs.img"
 
 log "Build completed"

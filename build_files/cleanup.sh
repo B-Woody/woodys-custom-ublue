@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -euo pipefail
+set -euox pipefail
 
 ## Clean package manager cache on ostree stuff
 dnf5 clean all
