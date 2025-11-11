@@ -1,4 +1,5 @@
 #!/bin/bash
+
 set -euo pipefail
 
 ## Clean package manager cache on ostree stuff
