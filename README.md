@@ -1,5 +1,7 @@
 # Woody's Custom uBlue 🛹🐧💻
 
+![](system_files/usr/share/plymouth/themes/spinner/watermark.png)
+
 ![Build Woodys Custom uBlue](https://github.com/B-Woody/woodys-custom-ublue/actions/workflows/build.yml/badge.svg)
 
 This project is based on the [Universal Blue image template](https://github.com/ublue-os/image-template). If you want to try do something similiar, I suggest starting with the fanstastic tooling that the Universal Blue project have created.  
@@ -54,7 +56,7 @@ Work in progress!
 - [ ] Kernel Same-page Merging (KSM) 
 - [X] Allow TCP/IP forwarding for SSH tunnel foo (`net.ipv4.ip_forward = 1`)
 - [ ] Configure Firewalld zone for Tailscale
-- [ ] Cool Plymouth Boot + Dracut
+- [X] Cool Plymouth Boot + Dracut
 
 
 
