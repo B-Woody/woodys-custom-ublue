@@ -29,6 +29,7 @@ Work in progress! Have not re-based my main system yet!
     * `cockpit{-system,-machines,-ostree,-podman,-selinux,-networkmanager,-storaged}`
     * @virtualization
     * ksmtuned
+* Kernel hardening vai sysctl config from the [SecureBlue](https://github.com/secureblue/secureblue) project
 * Swapped `nano` default to `vim` 
 * Enabled `tailscaled.service`
 * Enabled MAC address randomization on WiFi Scanning
@@ -40,6 +41,8 @@ Work in progress! Have not re-based my main system yet!
 
 ## ToDo/Goals/Wishlist
 
+- [ ] Hardening
+    - [X] Kernel hardening via sysctl
 - [ ] Configure `gnome-remote-desktop` (GRD) out of the box.
 - [X] KVM/libvirt
 - [X] Cockpit and Cockpit machines etc. out of the box.
