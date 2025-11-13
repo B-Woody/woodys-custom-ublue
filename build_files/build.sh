@@ -31,7 +31,6 @@ cockpit{-system,-machines,-ostree,-podman,-selinux,-networkmanager,-storaged} \
 # Using updated fork from raul-lezameta because main project seems dead 
 # curl -s "https://raw.githubusercontent.com/raul-lezameta/Linux_Dynamic_Wallpapers/main/Easy_Install.sh" | bash
 
-cd ~
 echo "Downloading needed files started"
 git clone https://github.com/saint-13/Linux_Dynamic_Wallpapers.git  
 cd Linux_Dynamic_Wallpapers
@@ -47,7 +46,7 @@ echo "Installing wallpapers..."
 cp -r ./Dynamic_Wallpapers/ /usr/share/backgrounds/
 cp ./xml/* /usr/share/gnome-background-properties/
 echo "Dynamic Wallpapers has been installed!"
-cd ~ 
+cd .. 
 echo "Deleting files used only for the installation process"
 rm -r Linux_Dynamic_Wallpapers
 echo "Wallpapers Installed"
