@@ -29,7 +29,7 @@ cockpit{-system,-machines,-ostree,-podman,-selinux,-networkmanager,-storaged} \
 
 # Cool GNOME Dynamic Wallpapers
 # Using updated fork from raul-lezameta because main project seems dead 
-curl -s "https://raw.githubusercontent.com/raul-lezameta/Linux_Dynamic_Wallpapers/main/Easy_Install.sh" | sudo bash
+curl -s "https://raw.githubusercontent.com/raul-lezameta/Linux_Dynamic_Wallpapers/main/Easy_Install.sh" | bash
 
 ## Enable VM/QEMU/libvirt ( same as ujust script )
 ## Bazzite seems to ship with libvirt and qemu-kvm installed.
