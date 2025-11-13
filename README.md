@@ -43,10 +43,10 @@ Work in progress! Have not re-based my main system yet!
 
 ## ToDo/Goals/Wishlist
 
-- [ ] Hardening
+- [X] Hardening
     - [X] Kernel hardening via sysctl
     - [X] Kernel hardening via kargs
-- [ ] Configure `gnome-remote-desktop` (GRD) out of the box.
+    - [X] MAC address randomization on WiFi Scanning
 - [X] KVM/libvirt
 - [X] Cockpit and Cockpit machines etc. out of the box.
 - [ ] Install Flatpaks to userspace from list.
@@ -61,12 +61,12 @@ Work in progress! Have not re-based my main system yet!
 - [X] Change `gsettings` defaults:
     - [X] No compatibility check for GNOME extensions (YOLO)
 - [X] Cool wallpapers pre-loaded.
-- [ ] Set up Nix package manager.
-- [X] MAC address randomization on WiFi Scanning
 - [X] Kernel Same-page Merging (KSM) with ksmtuned
 - [X] Allow TCP/IP forwarding for SSH tunnel foo (`net.ipv4.ip_forward = 1`)
-- [ ] Configure Firewalld zone for Tailscale
 - [X] Cool Plymouth Boot + Dracut
+- [ ] Configure Firewalld zone for Tailscale
+- [ ] ~~Configure `gnome-remote-desktop` (GRD) out of the box.~~ No need for now
+- [ ] ~~Set up Nix package manager.~~ Not interest in Nix for now
 
 
 
