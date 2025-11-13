@@ -27,6 +27,10 @@ cockpit{-system,-machines,-ostree,-podman,-selinux,-networkmanager,-storaged} \
 ## Cockpit socket/service intentionally disabled to reduce attack surface until I setup better firewalld config
 # systemctl enable --now cockpit.socket
 
+# Cool GNOME Dynamic Wallpapers
+# Using updated fork from raul-lezameta because main project seems dead 
+curl -s "https://raw.githubusercontent.com/raul-lezameta/Linux_Dynamic_Wallpapers/main/Easy_Install.sh" | sudo bash
+
 ## Enable VM/QEMU/libvirt ( same as ujust script )
 ## Bazzite seems to ship with libvirt and qemu-kvm installed.
 systemctl enable libvirtd

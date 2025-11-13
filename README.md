@@ -16,6 +16,8 @@ Work in progress! Have not re-based my main system yet!
 
 ## Changes (on top of `bazzite-gnome`)
 
+* Changed Fedora/Bazzite logo to Skateboard in Plymouth boot theme
+* [Cool selection of GNOME dynamic wallpapers](https://github.com/raul-lezameta/Linux_Dynamic_Wallpapers/tree/selective-gnome42-conversion) 
 * Added DNF packages:
     * tmux
     * htop
@@ -27,7 +29,7 @@ Work in progress! Have not re-based my main system yet!
     * `cockpit{-system,-machines,-ostree,-podman,-selinux,-networkmanager,-storaged}`
     * @virtualization
     * ksmtuned
-* Swapped `nano` default to a `vim`
+* Swapped `nano` default to `vim` 
 * Enabled `tailscaled.service`
 * Enabled MAC address randomization on WiFi Scanning
 * Disabled Steam auto-start
@@ -52,7 +54,7 @@ Work in progress! Have not re-based my main system yet!
     - [ ] Automate installation (custom ujust)
 - [X] Change `gsettings` defaults:
     - [X] No compatibility check for GNOME extensions (YOLO)
-- [ ] Cool wallpapers pre-loaded.
+- [X] Cool wallpapers pre-loaded.
 - [ ] Set up Nix package manager.
 - [X] MAC address randomization on WiFi Scanning
 - [X] Kernel Same-page Merging (KSM) with ksmtuned
