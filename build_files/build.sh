@@ -53,7 +53,7 @@ cockpit{-system,-machines,-ostree,-podman,-selinux,-networkmanager,-storaged} \
 
 ## Enable VM/QEMU/libvirt ( same as ujust script )
 ## Bazzite seems to ship with libvirt and qemu-kvm installed.
-systemctl enable libvirtd
+# systemctl enable libvirtd
 systemctl enable bazzite-libvirtd-setup.service
 
 # Kernel Samepage Merging (KSM) for VM RAM savings
