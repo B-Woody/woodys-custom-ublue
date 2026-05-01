@@ -36,11 +36,6 @@ RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
     --mount=type=tmpfs,dst=/tmp \
     /ctx/build.sh
 
-# Mitigate CVE-2026-31431
-RUN mkdir -p /usr/lib/bootc/kargs.d
-RUN cat <<EOF >> /usr/lib/bootc/kargs.d/CVE-2026-31431.toml
-kargs = ["initcall_blacklist=algif_aead_init"]
-EOF
     
 ### LINTING
 ## Verify final image and contents are correct.

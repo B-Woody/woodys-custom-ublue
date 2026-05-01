@@ -28,4 +28,5 @@ kargs = [
   "ssbd=force-on",
   "vdso32=0",
   "vsyscall=none",
+  "initcall_blacklist=algif_aead_init",
 ]
