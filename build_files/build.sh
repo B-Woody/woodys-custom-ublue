@@ -69,6 +69,9 @@ dnf5 swap -y nano-default-editor vim-default-editor
 ## Enable Tailscale Service
 systemctl enable tailscaled.service
 
+## Disable DisplayLink serivce that keeps hogging CPU
+systemctl disable displaylink.service
+
 ## Apply GNOME config tweaks
 dconf update
 
