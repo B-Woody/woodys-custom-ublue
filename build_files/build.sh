@@ -20,7 +20,7 @@ set -ouex pipefail
 
 ## Install extra DNF Packages
 dnf5 install -y \
-tmux htop netcat socat radeontop node-exporter podman-compose ksmtuned qemu-kvm libvirt libvirt-daemon-common libvirt-daemon-kvm libvirt-ssh-proxy libvirt-dbus libvirt-daemon-driver-qemu\
+tmux htop netcat socat radeontop node-exporter podman-compose ksmtuned qemu-kvm libvirt libvirt-daemon-common libvirt-daemon-kvm libvirt-ssh-proxy libvirt-dbus libvirt-daemon-driver-qemu \
 cockpit{-system,-machines,-ostree,-podman,-selinux,-networkmanager,-storaged} \
 @virtualization 
 
