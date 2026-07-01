@@ -79,7 +79,7 @@ systemctl disable displaylink.service
 dconf update
 
 ## Remove autostart files
-rm /etc/skel/.config/autostart/steam.desktop
+# rm /etc/skel/.config/autostart/steam.desktop
 
 #  Get kernel version and build initramfs
 KERNEL_VERSION="$(dnf5 repoquery --installed --queryformat='%{evr}.%{arch}' kernel)"
