@@ -22,7 +22,11 @@ set -ouex pipefail
 dnf5 install -y \
 tmux htop netcat socat radeontop node-exporter podman-compose ksmtuned qemu-kvm libvirt libvirt-daemon-common libvirt-daemon-kvm libvirt-ssh-proxy libvirt-dbus libvirt-daemon-driver-qemu \
 cockpit{-system,-machines,-ostree,-podman,-selinux,-networkmanager,-storaged} \
-@virtualization 
+@virtualization
+
+## Remove BazziteDX Docker stuff, because we only use Podman in this house
+dnf5 remove docker* containerd.io
+systemctl disable docker.socket
 
 ## Cockpit socket/service intentionally disabled to reduce attack surface until I setup better firewalld config
 # systemctl enable --now cockpit.socket
