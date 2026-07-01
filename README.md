@@ -1,12 +1,14 @@
 # Woody's Custom uBlue 🛹🐧💻
 
+**Currently experimenting with rebasing to KDE or another environment** 
+
 ![](system_files/usr/share/plymouth/themes/spinner/watermark.png)
 
 ![Build Woodys Custom uBlue](https://github.com/B-Woody/woodys-custom-ublue/actions/workflows/build.yml/badge.svg)
 
 This project is based on the [Universal Blue image template](https://github.com/ublue-os/image-template). If you want to try do something similiar, I suggest starting with the fanstastic tooling that the Universal Blue project have created.  
 
-This is my custom [bootc](https://github.com/bootc-dev/bootc) image image based on Bazzite (`ghcr.io/ublue-os/bazzite-gnome:stable`) from the Universal Blue Project.
+This is my custom [bootc](https://github.com/bootc-dev/bootc) image image based on Bazzite (`ghcr.io/ublue-os/bazzite-dx:stable`) from the Universal Blue Project.
 
 My intention is to automate and codify my immutable Linux desktop build as much as possible. This git repo is for me to hack away and get more comfortable with container-focused development, cloud-native tools and CI/CD.
 
