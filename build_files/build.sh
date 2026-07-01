@@ -26,7 +26,6 @@ cockpit{-system,-machines,-ostree,-podman,-selinux,-networkmanager,-storaged} \
 
 ## Remove BazziteDX Docker stuff, because we only use Podman in this house
 dnf5 remove -y docker* containerd.io
-systemctl disable docker.socket
 
 ## Cockpit socket/service intentionally disabled to reduce attack surface until I setup better firewalld config
 # systemctl enable --now cockpit.socket
