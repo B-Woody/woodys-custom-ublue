@@ -27,6 +27,14 @@ cockpit{-system,-machines,-ostree,-podman,-selinux,-networkmanager,-storaged,-co
 ## Remove BazziteDX Docker stuff, because we only use Podman in this house
 dnf5 remove -y docker* containerd.io
 
+# Missing users for osbuild stuff
+if ! getent group _osbuild-composer >/dev/null; then
+    groupadd -r _osbuild-composer
+fi
+if ! getent passwd _osbuild-composer >/dev/null; then
+    useradd -r -g _osbuild-composer -d /var/lib/osbuild-composer -s /sbin/nologin -c "OSBuild Composer" _osbuild-composer
+fi
+
 ## Cockpit socket/service intentionally disabled to reduce attack surface until I setup better firewalld config
 # systemctl enable --now cockpit.socket
 
