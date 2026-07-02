@@ -20,8 +20,8 @@ set -ouex pipefail
 
 ## Install extra DNF Packages
 dnf5 install -y \
-tmux htop netcat socat radeontop node-exporter podman-compose ksmtuned qemu-kvm libvirt libvirt-daemon-common libvirt-daemon-kvm libvirt-ssh-proxy libvirt-dbus libvirt-daemon-driver-qemu \
-cockpit{-system,-machines,-ostree,-podman,-selinux,-networkmanager,-storaged} \
+tmux htop netcat socat radeontop node-exporter podman-compose ksmtuned qemu-kvm libvirt libvirt-daemon-common libvirt-daemon-kvm libvirt-ssh-proxy libvirt-dbus libvirt-daemon-driver-qemu osbuild* \
+cockpit{-system,-machines,-ostree,-podman,-selinux,-networkmanager,-storaged,-composer} \
 @virtualization
 
 ## Remove BazziteDX Docker stuff, because we only use Podman in this house

@@ -16,11 +16,10 @@ Heavily inspired by [Amy OS](https://github.com/astrovm/amyos).
 
 Work in progress! Have not re-based my main system yet!
 
-## Changes (on top of `bazzite-gnome`)
+## Changes (on top of `bazzite-dx`)
 
 * Changed Fedora/Bazzite logo to Skateboard in Plymouth boot theme
-* [Cool selection of GNOME dynamic wallpapers](https://github.com/raul-lezameta/Linux_Dynamic_Wallpapers/tree/selective-gnome42-conversion) 
-* Added DNF packages:
+* Added some DNF packages:
     * tmux
     * htop
     * netcat
@@ -28,23 +27,24 @@ Work in progress! Have not re-based my main system yet!
     * radeontop
     * node-exporter
     * podman-compose
-    * `cockpit{-system,-machines,-ostree,-podman,-selinux,-networkmanager,-storaged}`
+    * `cockpit{-system,-machines,-ostree,-podman,-selinux,-networkmanager,-storaged,-composer}`
     * @virtualization
     * ksmtuned
+    * osbuild-composer
 * Kernel hardening
     * via sysctl config from the [SecureBlue](https://github.com/secureblue/secureblue) project
     * via kargs with most ( but not all ) of the kargs from [SecureBlue](https://github.com/secureblue/secureblue) project
 * Swapped `nano` default to `vim` 
 * Enabled `tailscaled.service`
 * Enabled MAC address randomization on WiFi Scanning
-* Disabled Steam auto-start
-* Disabled version compatibility check for GNOME extensions
-* Enabled libvirtd.service and bazzite-libvirtd-setup.service 
+* Disabled version compatibility check for GNOME extensions (in case I change back from KDE)
+* Enabled libvirtd.service 
 * Enabled TCP/IP Forwarding
 * Enabled Kernel Same-page Merging (KSM) with ksmtuned 
 
 ## ToDo/Goals/Wishlist
 
+- [X] Rebase to Bazzite DX with KDE
 - [X] Hardening
     - [X] Kernel hardening via sysctl
     - [X] Kernel hardening via kargs
