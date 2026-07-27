@@ -75,6 +75,12 @@ systemctl enable tailscaled.service
 ## Disable DisplayLink serivce that keeps hogging CPU
 systemctl disable displaylink.service
 
+## Enable firewalld and configure default zone + Steam ports
+systemctl enable firewalld
+firewall-cmd --set-default-zone=FedoraServer --no-live
+firewall-cmd --add-service=steam --zone=FedoraServer --no-live
+firewall-cmd --add-port=27036/tcp --zone=FedoraServer --no-live
+
 ## Apply GNOME config tweaks
 dconf update
 
