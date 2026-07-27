@@ -78,8 +78,8 @@ systemctl disable displaylink.service
 ## Enable firewalld and configure default zone + Steam ports
 systemctl enable firewalld
 firewall-offline-cmd --set-default-zone=FedoraServer
-firewall-offline-cmd --add-service=steam --zone=FedoraServer
 firewall-offline-cmd --add-port=27036/tcp --zone=FedoraServer
+firewall-offline-cmd --add-port=27031-27036/udp --zone=FedoraServer
 
 ## Apply GNOME config tweaks
 dconf update
