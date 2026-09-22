@@ -90,6 +90,10 @@ cat << 'EOF' > /etc/udev/rules.d/99-thinkpad-thresholds-udev.rules
 ACTION=="add|change", KERNEL=="BAT1", SUBSYSTEM=="power_supply", ATTR{charge_control_end_threshold}=="*", RUN+="/bin/chmod 666 /sys/class/power_supply/BAT1/charge_control_end_threshold"
 EOF
 
+# Force the ChromeOS EC module to unlock hardware writes for the Ryzen AI 300 mainboard
+mkdir -p /etc/modprobe.d
+echo "options cros_charge_control probe_with_fwk_charge_control=1" > /etc/modprobe.d/framework-charge-control.conf
+
 
 ## Remove autostart files
 # rm /etc/skel/.config/autostart/steam.desktop
