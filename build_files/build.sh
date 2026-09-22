@@ -84,6 +84,13 @@ firewall-offline-cmd --add-port=27031-27036/udp --zone=FedoraServer
 ## Apply GNOME config tweaks
 dconf update
 
+# Fix Framework battery charge limit by overriding the broken upstream udev rule
+mkdir -p /etc/udev/rules.d
+cat << 'EOF' > /etc/udev/rules.d/99-thinkpad-thresholds-udev.rules
+ACTION=="add|change", KERNEL=="BAT1", SUBSYSTEM=="power_supply", ATTR{charge_control_end_threshold}=="*", RUN+="/bin/chmod 666 /sys/class/power_supply/BAT1/charge_control_end_threshold"
+EOF
+
+
 ## Remove autostart files
 # rm /etc/skel/.config/autostart/steam.desktop
 
