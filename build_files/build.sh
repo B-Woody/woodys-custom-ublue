@@ -75,6 +75,9 @@ systemctl enable tailscaled.service
 ## Disable DisplayLink serivce that keeps hogging CPU
 systemctl disable displaylink.service
 
+# Enable the hardware limit service on boot
+systemctl enable fw-hardware-charge-limit.service
+
 ## Enable firewalld and configure default zone + Steam ports
 systemctl enable firewalld
 firewall-offline-cmd --set-default-zone=FedoraServer

@@ -1,0 +1,13 @@
+[Unit]
+Description=Force Framework AMD Hardware Battery Charge Limit
+After=multi-user.target
+DefaultDependencies=no
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/framework_tool --driver cros-ec --charge-limit 80
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
+
