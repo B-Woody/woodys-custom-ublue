@@ -2,6 +2,6 @@
 <service>
   <short>Steam Gaming</short>
   <description>Steam gaming ports (UDP 27031-27036 and TCP 27036)</description>
-  <port id="steam-udp" port="27031-27036" protocol="udp"/>
-  <port id="steam-tcp" port="27036" protocol="tcp"/>
+  <port port="27031-27036" protocol="udp"/>
+  <port port="27036" protocol="tcp"/>
 </service>

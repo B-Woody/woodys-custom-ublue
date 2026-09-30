@@ -1,32 +1,33 @@
-# This is most ( but not all ) of the kargs from SecureBlue. I removed the lockdown mode so KSM still works and left SMT enabled.
-
+# Kernel hardening — SecureBlue-derived, pruned for AMD Ryzen AI 300 (Framework 13).
+# This is most (but not all) of the kargs from SecureBlue, with the lockdown mode
+# removed so KSM still works and SMT left enabled — as before.
+#
+# Dropped from the SecureBlue list (with reasons):
+#   intel_iommu=on, kvm-intel.vmentry_l1d_flush=always, l1d_flush=on  -> Intel-only (no-op here)
+#   l1tf=full,force                                                   -> L1TF is an Intel bug; mitigation bails elsewhere
+#   ssbd=force-on                                                     -> ARM64 spelling of the param; ignored on x86_64
+#   pti=on                                                            -> forces Page Table Isolation; pure cost on AMD
+#   spec_store_bypass_disable=on, spectre_v2=on                       -> AMD auto defaults are fine (re-add for max posture)
+#   initcall_blacklist=algif_aead_init                                -> workaround for CVE-2026-31431; REMOVABLE once the
+#                                                                        kernel build includes the fix (re-check `rpm -q kernel`)
 kargs = [
   "init_on_alloc=1",
   "init_on_free=1",
-  "intel_iommu=on",
+  "iommu=force",
   "iommu.passthrough=0",
   "iommu.strict=1",
-  "iommu=force",
-  "kvm-intel.vmentry_l1d_flush=always",
   "kvm.mitigate_smt_rsb=1",
-  "l1d_flush=on",
-  "l1tf=full,force",
   "loglevel=0",
   "mitigations=auto",
   "module.sig_enforce=1",
   "page_alloc.shuffle=1",
   "proc_mem.force_override=ptrace",
-  "pti=on",
   "random.trust_bootloader=off",
   "random.trust_cpu=off",
   "randomize_kstack_offset=on",
   "rd.emergency=halt",
   "rd.shell=0",
   "slab_nomerge",
-  "spec_store_bypass_disable=on",
-  "spectre_v2=on",
-  "ssbd=force-on",
   "vdso32=0",
   "vsyscall=none",
-  "initcall_blacklist=algif_aead_init",
 ]
