@@ -24,11 +24,19 @@ tmux htop netcat socat radeontop node-exporter podman-compose ksmtuned qemu-kvm 
 cockpit{-system,-machines,-ostree,-podman,-selinux,-networkmanager,-storaged,-composer} \
 @virtualization
 
-## Remove BazziteDX Docker stuff, because we only use Podman in this house
-dnf5 remove -y docker* containerd.io
+## node-exporter is installed but deliberately NOT enabled yet (revisit later if wanted)
 
-## Cockpit socket/service intentionally disabled to reduce attack surface until I setup better firewalld config
-# systemctl enable --now cockpit.socket
+## Remove BazziteDX Docker stuff, because we only use Podman in this house
+# (disable the socket first so no dangling enable symlink survives the removal)
+systemctl disable docker.socket docker.service 2>/dev/null || true
+dnf5 remove -y containerd.io docker-buildx-plugin docker-ce docker-ce-cli docker-compose-plugin
+rm -f /etc/systemd/system/sockets.target.wants/docker.socket
+
+## Cockpit re-enabled now that the firewalld config below is in place
+systemctl enable cockpit.socket
+
+## SSH server: Bazzite ships sshd disabled by default; I want remote access
+systemctl enable sshd
 
 # Cool GNOME Dynamic Wallpapers
 # Using updated fork from raul-lezameta because main project seems dead 
@@ -62,9 +70,8 @@ systemctl enable bazzite-libvirtd-setup.service
 # Kernel Samepage Merging (KSM) for VM RAM savings
 systemctl enable ksmtuned 
 
-# Enable IP forwarding for SSH and VPN foo
-echo "net.ipv4.ip_forward = 1" > /etc/sysctl.d/10-woody-custom.conf
-sysctl -p
+## IP forwarding for SSH tunnels / VPN: config shipped via
+## system_files/usr/lib/sysctl.d/10-woody-custom.conf (sysctl -p is a no-op in a container build)
 
 ## Switch o a far superior default editor
 dnf5 swap -y nano-default-editor vim-default-editor
@@ -72,17 +79,21 @@ dnf5 swap -y nano-default-editor vim-default-editor
 ## Enable Tailscale Service
 systemctl enable tailscaled.service
 
-## Disable DisplayLink serivce that keeps hogging CPU
-systemctl disable displaylink.service
+## Mask the DisplayLink service (it keeps hogging CPU; mask keeps it off even if the unit moves around)
+systemctl mask displaylink.service 2>/dev/null || true
 
 # Enable the hardware limit service on boot
 systemctl enable fw-hardware-charge-limit.service
 
-## Enable firewalld and configure default zone + Steam ports
+## Firewalld: strict default zone + home zone (Steam/Cockpit) + trusted tailnet
 systemctl enable firewalld
 firewall-offline-cmd --set-default-zone=FedoraServer
-firewall-offline-cmd --add-port=27036/tcp --zone=FedoraServer
-firewall-offline-cmd --add-port=27031-27036/udp --zone=FedoraServer
+## Home zone: stock already has ssh, mdns, dhcpv6-client; add Steam Remote Play + Cockpit.
+## Bind home Wi-Fi SSIDs once, on the laptop:  nmcli connection modify "<ssid>" connection.zone home
+firewall-offline-cmd --zone=home --add-service=cockpit
+firewall-offline-cmd --zone=home --add-service=steam
+## Trust the tailnet interface (applies when Tailscale brings it up)
+firewall-offline-cmd --zone=trusted --add-interface=tailscale0
 
 ## Apply GNOME config tweaks
 dconf update
