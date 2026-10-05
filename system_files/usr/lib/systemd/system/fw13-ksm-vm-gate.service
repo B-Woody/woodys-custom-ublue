@@ -1,0 +1,19 @@
+[Unit]
+Description=Enable KSM (ksmtuned) only while libvirt/KVM VMs are running
+Documentation=man:ksmtuned(8) man:systemd.timer(5)
+# KSM's scanning/dedup threads burn CPU continuously for no benefit on a laptop
+# that is mostly VM-free. This unit starts ksmtuned only when at least one KVM
+# guest is actually running, and stops it otherwise. fw13-ksm-vm-gate.timer
+# re-runs it every 5 min, so KSM also turns off again when the last VM exits.
+#
+# Detection: scan /proc/*/comm for a task named qemu-system-* (libvirt's KVM
+# guests). Done with a shell glob rather than pgrep so it needs no extra package,
+# cannot match this unit's own command line, and works regardless of the guest
+# architecture. (This image uses podman for containers, not docker, so a
+# qemu-system task here means a libvirt VM.)
+After=multi-user.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=no
+ExecStart=/usr/bin/bash -c 'set -- /proc/[0-9]*/comm; found=0; for f in "$@"; do read -r n < "$f" 2>/dev/null || continue; case "$n" in qemu-system*) found=1; break;; esac; done; if [ "$found" = 1 ]; then /usr/bin/systemctl start ksmtuned.service; else /usr/bin/systemctl stop ksmtuned.service 2>/dev/null || true; fi'

@@ -1,0 +1,20 @@
+# udev rule — Framework Laptop 13 (AMD) suspend wakeup fix.
+#
+# Problem: the embedded controller on this mainboard emits spurious wake events —
+# closing the lid fires two of them (one from the lid switch, one from a synthetic
+# keyboard event) and plugging in the charger fires a keyboard one. The machine
+# can wake itself to screen-on right after suspending and sit awake (e.g. in a
+# bag), draining the battery.
+#
+# Effect: disables wakeup for the ACPI lid switch (PNP0C0D) and the AT keyboard
+# controller. Trade-off: the lid and keyboard no longer wake the machine — resume
+# with the power button or the touchpad. This is the standard community fix.
+#
+# Revert: remove this file and rebuild, or `echo enabled > /sys/.../power/wakeup`
+# at runtime to test before deciding (values reset on reboot).
+#
+# References:
+#   https://community.frame.work/t/tracking-framework-amd-ryzen-7040-series-lid-wakeup-behavior-feedback/39128
+
+ACTION=="add", SUBSYSTEM=="acpi", DRIVERS=="button", ATTRS{hid}=="PNP0C0D", ATTR{power/wakeup}="disabled"
+ACTION=="add", SUBSYSTEM=="serio", DRIVERS=="atkbd", ATTR{power/wakeup}="disabled"

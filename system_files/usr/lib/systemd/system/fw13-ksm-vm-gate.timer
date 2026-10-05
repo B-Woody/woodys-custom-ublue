@@ -1,0 +1,12 @@
+[Unit]
+Description=Periodically re-evaluate KSM gating for running libvirt/KVM VMs
+
+[Timer]
+OnBootSec=2min
+OnUnitActiveSec=5min
+AccuracySec=30s
+# Don't wake the machine just for this check.
+Persistent=false
+
+[Install]
+WantedBy=timers.target

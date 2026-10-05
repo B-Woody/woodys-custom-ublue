@@ -24,7 +24,8 @@ tmux htop netcat socat radeontop node-exporter podman-compose ksmtuned qemu-kvm 
 cockpit{-system,-machines,-ostree,-podman,-selinux,-networkmanager,-storaged,-composer} \
 @virtualization
 
-## node-exporter is installed but deliberately NOT enabled yet (revisit later if wanted)
+## node-exporter is installed but deliberately NOT enabled (Woody's call) — a
+## laptop does not need to be scraped; leaving it off avoids a steady idle CPU poll.
 
 ## Remove BazziteDX Docker stuff, because we only use Podman in this house
 # (disable the socket first so no dangling enable symlink survives the removal)
@@ -67,8 +68,21 @@ systemctl enable sshd
 # systemctl enable libvirtd
 systemctl enable bazzite-libvirtd-setup.service
 
-# Kernel Samepage Merging (KSM) for VM RAM savings
-systemctl enable ksmtuned 
+# Kernel Samepage Merging (KSM) for VM RAM savings.
+# ksmtuned is NOT enabled directly any more: on a laptop that is mostly VM-free
+# its scanning threads burn CPU for nothing. fw13-ksm-vm-gate.service starts it
+# only while libvirt VMs are actually running (and its timer re-checks every
+# 5 min). ksmtuned.conf still tunes the coefficient when it IS running.
+systemctl enable fw13-ksm-vm-gate.service fw13-ksm-vm-gate.timer
+
+## Framework 13 AMD power tuning (2026-10)
+## Kernel args: amd_pstate=guided, amdgpu.abmlevel=2 (see 10-hardening.toml).
+## Wakeup suppression: system_files/usr/lib/udev/rules.d/99-fw13-wakeup.rules.
+## Sleep policy: sleep.conf.d sets HibernateDelaySec; the drop-in at
+##   usr/lib/systemd/system/systemd-suspend.service.d/10-fw13-suspend-then-hibernate.conf
+##   routes plain "suspend" through suspend-then-hibernate so the machine
+##   hibernates after HibernateDelaySec instead of draining in a bag.
+##   Requires swap >= RAM for the hibernate half; see that file's header.
 
 ## IP forwarding for SSH tunnels / VPN: config shipped via
 ## system_files/usr/lib/sysctl.d/10-woody-custom.conf (sysctl -p is a no-op in a container build)

@@ -10,12 +10,34 @@
 #   spec_store_bypass_disable=on, spectre_v2=on                       -> AMD auto defaults are fine (re-add for max posture)
 #   initcall_blacklist=algif_aead_init                                -> workaround for CVE-2026-31431; REMOVABLE once the
 #                                                                        kernel build includes the fix (re-check `rpm -q kernel`)
+#
+# Power/battery trade-offs applied 2026-10 (see README "Framework 13 power tuning"):
+#   init_on_free            -> dropped (kept init_on_alloc=1). Zeroing on every free is the
+#                              most expensive of the init_on_* pair — constant memory
+#                              traffic and CPU wakeups. init_on_alloc=1 still blocks the
+#                              main use-after-free info-leak class, so this keeps most of
+#                              the hardening for a measurable idle-power win.
+#   iommu.strict=1          -> dropped (kernel default "lazy" flush retained). Strict DMA
+#                              TLB invalidation flushes per-unmap and keeps the IOMMU busy;
+#                              lazy is the upstream default precisely because strict costs
+#                              throughput/power for negligible real-world benefit.
+#   amd_pstate=guided       -> ADDED. Lets the AMD CPPC governor honour EPP hints from
+#                              power-profiles-daemon while keeping kernel-side load
+#                              awareness. Biggest single idle-power knob on Strix/Krackan;
+#                              FW13 AMD reports show discharge dropping several watts.
+#                              Alternatives: "active" (default, performance-biased) or
+#                              "passive" (legacy ondemand-style).
+#   amdgpu.abmlevel=2       -> ADDED. Adaptive Backlight Management — a panel-side algorithm
+#                              that trims backlight power on dark content (~0.3-1W). Level 2
+#                              is the usual "no visible degradation" sweet spot; 3-4 are
+#                              visibly aggressive on light content. Set 0 to disable
+#                              (kernel 6.8+ exposes a runtime DRM property too).
 kargs = [
+  "amd_pstate=guided",
+  "amdgpu.abmlevel=2",
   "init_on_alloc=1",
-  "init_on_free=1",
   "iommu=force",
   "iommu.passthrough=0",
-  "iommu.strict=1",
   "kvm.mitigate_smt_rsb=1",
   "loglevel=0",
   "mitigations=auto",
