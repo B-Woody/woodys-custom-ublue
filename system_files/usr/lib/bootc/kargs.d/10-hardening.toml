@@ -21,12 +21,14 @@
 #                              TLB invalidation flushes per-unmap and keeps the IOMMU busy;
 #                              lazy is the upstream default precisely because strict costs
 #                              throughput/power for negligible real-world benefit.
-#   amd_pstate=guided       -> ADDED. Lets the AMD CPPC governor honour EPP hints from
-#                              power-profiles-daemon while keeping kernel-side load
-#                              awareness. Biggest single idle-power knob on Strix/Krackan;
-#                              FW13 AMD reports show discharge dropping several watts.
-#                              Alternatives: "active" (default, performance-biased) or
-#                              "passive" (legacy ondemand-style).
+#   amd_pstate=guided       -> ADDED. Gives the power-profile EPP hints (tuned-ppd on
+#                              Bazzite) more influence than the fully-autonomous,
+#                              performance-biased default ("active"). FW13 AMD users
+#                              report lower idle discharge; the size of the win varies
+#                              (the dramatic "halved power" reports come from systems
+#                              not using amd_pstate at all — not this case).
+#                              Alternatives: "active" (kernel default) or "passive"
+#                              (legacy; known to misbehave on some AMD laptops).
 #   amdgpu.abmlevel=2       -> ADDED. Adaptive Backlight Management — a panel-side algorithm
 #                              that trims backlight power on dark content (~0.3-1W). Level 2
 #                              is the usual "no visible degradation" sweet spot; 3-4 are
