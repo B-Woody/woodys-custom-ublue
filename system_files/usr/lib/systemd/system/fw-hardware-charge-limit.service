@@ -1,17 +1,13 @@
 [Unit]
 Description=Force Framework AMD Hardware Battery Charge Limit
-Documentation=https://github.com/FrameworkComputer/framework-system
-# Normal boot ordering via WantedBy=multi-user.target; no explicit After= needed
-# (DefaultDependencies adds the usual ordering). The previous version combined
-# After=multi-user.target with DefaultDependencies=no, which was contradictory
-# and could let the unit be skipped.
-ConditionPathExists=/usr/bin/framework_tool
+After=multi-user.target
+DefaultDependencies=no
 
 [Service]
 Type=oneshot
-# --charge-limit writes the 80% cap into the EC (uses the cros-ec driver).
 ExecStart=/usr/bin/framework_tool --driver cros-ec --charge-limit 80
 RemainAfterExit=yes
 
 [Install]
 WantedBy=multi-user.target
+

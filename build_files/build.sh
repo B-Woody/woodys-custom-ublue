@@ -96,9 +96,7 @@ systemctl enable tailscaled.service
 ## Mask the DisplayLink service (it keeps hogging CPU; mask keeps it off even if the unit moves around)
 systemctl mask displaylink.service 2>/dev/null || true
 
-# Enable the hardware limit service on boot.
-# (fw-charge-limit-resume.service ships dormant — it is only needed on old
-#  Framework EC firmware that dropped the limit after suspend; see its header.)
+# Enable the hardware limit service on boot
 systemctl enable fw-hardware-charge-limit.service
 
 ## Firewalld: strict default zone + home zone (Steam/Cockpit) + trusted tailnet

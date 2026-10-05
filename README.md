@@ -88,8 +88,11 @@ fast-resume behaviour while plugged in.
 ### Wakeup suppression (`99-fw13-wakeup.rules`)
 
 udev rule disabling wakeup for the ACPI lid switch (`PNP0C0D`) and the AT keyboard
-controller, so the machine stops waking inside a bag. Trade-off: opening the lid
-no longer resumes it — use the power button.
+controller. On this EC, closing the lid emits two spurious wake events (one from
+the lid switch, one from a synthetic keyboard event) and plugging in AC emits a
+keyboard one — so the laptop could wake itself to screen-on right after suspending
+and sit awake in a bag. Trade-off: the lid and keyboard no longer wake it — resume
+with the power button or touchpad.
 
 ### KSM gating (`fw13-ksm-vm-gate.service` + `.timer`)
 
@@ -98,14 +101,6 @@ when a `qemu-system-*` task is present (a running libvirt VM) and stops it
 otherwise; the paired timer re-checks every 5 minutes. `/etc/ksmtuned.conf` still
 tunes the coefficient when KSM is active. On a mostly VM-free laptop this removes
 KSM's continuous scanning cost.
-
-### Also shipped (dormant)
-
-`fw-charge-limit-resume.service` re-applies the 80% charge limit after wake, for
-older Framework EC firmware that dropped it across suspend. It is **not enabled** —
-this mainboard (BIOS 04.02) keeps the limit. Enable it in `build_files/build.sh`
-only if you actually see the cap lost after a resume.
-
 
 ## Network zones (firewalld)
 

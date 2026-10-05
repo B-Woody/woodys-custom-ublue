@@ -1,12 +1,14 @@
-# udev rule — Framework Laptop 13 (AMD) suspend/close-lid wakeup fixes.
+# udev rule — Framework Laptop 13 (AMD) suspend wakeup fix.
 #
-# Problem: the FW13 AMD mainboard can be woken by devices that should not wake it
-# (lid switch chatter, stray keyboard-controller events), so the machine wakes in
-# a bag and drains the battery while "asleep".
+# Problem: the embedded controller on this mainboard emits spurious wake events —
+# closing the lid fires two of them (one from the lid switch, one from a synthetic
+# keyboard event) and plugging in the charger fires a keyboard one. The machine
+# can wake itself to screen-on right after suspending and sit awake (e.g. in a
+# bag), draining the battery.
 #
 # Effect: disables wakeup for the ACPI lid switch (PNP0C0D) and the AT keyboard
-# controller. Opening the lid / pressing a key no longer resumes the machine; use
-# the power button or a configured wake source instead.
+# controller. Trade-off: the lid and keyboard no longer wake the machine — resume
+# with the power button or the touchpad. This is the standard community fix.
 #
 # Revert: remove this file and rebuild, or `echo enabled > /sys/.../power/wakeup`
 # at runtime to test before deciding (values reset on reboot).
