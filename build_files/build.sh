@@ -78,11 +78,10 @@ systemctl enable fw13-ksm-vm-gate.service fw13-ksm-vm-gate.timer
 ## Framework 13 AMD power tuning (2026-10)
 ## Kernel args: amd_pstate=guided, amdgpu.abmlevel=2 (see 10-hardening.toml).
 ## Wakeup suppression: system_files/usr/lib/udev/rules.d/99-fw13-wakeup.rules.
-## Sleep policy: sleep.conf.d sets HibernateDelaySec; the drop-in at
-##   usr/lib/systemd/system/systemd-suspend.service.d/10-fw13-suspend-then-hibernate.conf
-##   routes plain "suspend" through suspend-then-hibernate so the machine
-##   hibernates after HibernateDelaySec instead of draining in a bag.
-##   Requires swap >= RAM for the hibernate half; see that file's header.
+## Hibernation is deliberately disabled (sleep.conf.d/10-no-hibernation.conf):
+## it cannot work on this machine (zram-only swap, no resume=) and it conflicts
+## with the Secure Boot anti-tamper requirement (unsigned resume image).
+## Plain suspend is unaffected.
 
 ## IP forwarding for SSH tunnels / VPN: config shipped via
 ## system_files/usr/lib/sysctl.d/10-woody-custom.conf (sysctl -p is a no-op in a container build)
