@@ -1,0 +1,26 @@
+[Unit]
+Description=Re-apply Framework 80% charge limit after wake (old EC firmware workaround)
+Documentation=man:systemd.special(7) https://github.com/FrameworkComputer/framework-system
+# NOTE: this unit is NOT enabled in build.sh. It only matters for older Framework
+# BIOS/EC revisions that silently dropped the charge limit across suspend/resume.
+# Woody's mainboard runs BIOS 04.02, where the limit persists — so this ships
+# dormant. Enable it (add to the `systemctl enable` line in build_files/build.sh)
+# only if you observe the 80% cap being lost after a resume; verify with
+# `framework_tool --driver cros-ec --charge-limit` first.
+#
+# Implements the documented sleep.target hook pattern: ExecStart runs on the way
+# into sleep; ExecStop runs on wake. StopWhenUnneeded + RemainAfterExit make the
+# stop happen automatically when sleep.target goes away.
+DefaultDependencies=no
+StopWhenUnneeded=yes
+After=suspend.target hibernate.target hybrid-sleep.target suspend-then-hibernate.target
+ConditionPathExists=/usr/bin/framework_tool
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/bin/true
+ExecStop=/usr/bin/framework_tool --driver cros-ec --charge-limit 80
+
+[Install]
+WantedBy=sleep.target

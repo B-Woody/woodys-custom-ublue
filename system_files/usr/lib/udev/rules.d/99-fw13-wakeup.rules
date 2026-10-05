@@ -1,0 +1,18 @@
+# udev rule — Framework Laptop 13 (AMD) suspend/close-lid wakeup fixes.
+#
+# Problem: the FW13 AMD mainboard can be woken by devices that should not wake it
+# (lid switch chatter, stray keyboard-controller events), so the machine wakes in
+# a bag and drains the battery while "asleep".
+#
+# Effect: disables wakeup for the ACPI lid switch (PNP0C0D) and the AT keyboard
+# controller. Opening the lid / pressing a key no longer resumes the machine; use
+# the power button or a configured wake source instead.
+#
+# Revert: remove this file and rebuild, or `echo enabled > /sys/.../power/wakeup`
+# at runtime to test before deciding (values reset on reboot).
+#
+# References:
+#   https://community.frame.work/t/tracking-framework-amd-ryzen-7040-series-lid-wakeup-behavior-feedback/39128
+
+ACTION=="add", SUBSYSTEM=="acpi", DRIVERS=="button", ATTRS{hid}=="PNP0C0D", ATTR{power/wakeup}="disabled"
+ACTION=="add", SUBSYSTEM=="serio", DRIVERS=="atkbd", ATTR{power/wakeup}="disabled"
