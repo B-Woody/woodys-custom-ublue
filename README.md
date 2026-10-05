@@ -37,6 +37,7 @@ Work in progress! Rebased on my main system — see changes below.
 * KVM/libvirt enabled (Bazzite's `bazzite-libvirtd-setup.service`); KSM (`ksmtuned`) for VM RAM savings, thresholds tuned in `/etc/ksmtuned.conf`
 * Enabled TCP/IP forwarding (`net.ipv4.ip_forward = 1`)
 * Framework battery charge limit (80%) applied at boot
+* Framework 13 internal microphone fix — blacklist the AMD ACP audio modules (`system_files/usr/lib/modprobe.d/fw13-acp-mic-blacklist.conf`) to stop the phantom `acp-pdm-mach` card the BIOS wrongly advertises; see [Framework issue #11](https://github.com/NorrisWu0/dotfile/issues/11) / [FrameworkComputer/SoftwareFirmwareIssueTracker#166](https://github.com/FrameworkComputer/SoftwareFirmwareIssueTracker/issues/166)
 * Swapped `nano` default to `vim`
 * Disabled version compatibility check for GNOME extensions (in case I change back from KDE)
 
