@@ -13,7 +13,7 @@ Built on the [Universal Blue image template](https://github.com/ublue-os/image-t
 * Skateboard Plymouth boot theme
 * Extra DNF packages: `tmux` `htop` `netcat` `socat` `radeontop`, `podman-compose`, `cockpit{-system,-machines,-ostree,-podman,-selinux,-networkmanager,-storaged,-composer}`, `@virtualization` (qemu-kvm/libvirt), `ksmtuned`; `node-exporter` installed but deliberately not enabled (a laptop doesn't need scraping)
 * Kernel hardening: SecureBlue-derived sysctls + pruned kargs (`system_files/usr/lib/bootc/kargs.d/10-hardening.toml`)
-* **Framework 13 power tuning** (2026-10): `amd_pstate=guided`, `amdgpu.abmlevel=2`, lid/keyboard wakeup suppression, KSM gated to running VMs, hibernation disabled — see below
+* **Framework 13 power tuning** (2026-10): `amd_pstate=guided`, `amdgpu.abmlevel=2`, keyboard wakeup suppression, KSM gated to running VMs, hibernation disabled — see below
 * Framework 13 internal microphone fix: blacklist the AMD ACP audio modules (`system_files/usr/lib/modprobe.d/fw13-acp-mic-blacklist.conf`) to stop the phantom `acp-pdm-mach` card the BIOS wrongly advertises; see [Framework issue #11](https://github.com/NorrisWu0/dotfile/issues/11) / [FrameworkComputer/SoftwareFirmwareIssueTracker#166](https://github.com/FrameworkComputer/SoftwareFirmwareIssueTracker/issues/166)
 * Network: per-connection MAC randomisation; firewalld with a strict `FedoraServer` default zone (SSH + Cockpit), a `home` zone for Steam Remote Play + Cockpit (bind SSIDs: `nmcli connection modify "<ssid>" connection.zone home`), and `tailscale0` trusted; `sshd`, Cockpit and `tailscaled` enabled
 * KVM/libvirt enabled; TCP/IP forwarding on
@@ -25,7 +25,7 @@ Built on the [Universal Blue image template](https://github.com/ublue-os/image-t
 Battery pass for the AMD Ryzen AI 300 mainboard. Short version — details live in the file headers (`10-hardening.toml`, `99-fw13-wakeup.rules`, the KSM gate units) and in my wiki:
 
 - **Kernel args:** `amd_pstate=guided` gives the power-profile EPP hints more influence than the performance-biased default; `amdgpu.abmlevel=2` trims panel backlight on dark content.
-- **Wakeup suppression:** the lid switch and internal keyboard no longer wake it (resume via power button or touchpad) — stops the EC's spurious bag-wakeups.
+- **Wakeup suppression:** the internal keyboard no longer wakes it — stops the EC's spurious bag-wakeups. Opening the lid still resumes it (the lid-switch half of the rule was dropped in 2026-10 — see the file header).
 - **KSM** only runs while a libvirt VM is up (`fw13-ksm-vm-gate.service` + `.timer`).
 - **Hibernation is deliberately disabled** (`sleep.conf.d/10-no-hibernation.conf`): it weakens the Secure Boot anti-tamper posture (unsigned resume image) and could never work here anyway (zram-only swap, no `resume=`). Plain suspend is unaffected.
 
@@ -58,7 +58,7 @@ sudo bootc rollback                                            # back to the pre
     - [X] No compatibility check for GNOME extensions (YOLO)
 - [X] Cool wallpapers pre-loaded.
 - [X] Kernel Same-page Merging (KSM) with ksmtuned
-- [X] Framework 13 power tuning (2026-10): amd_pstate=guided, abmlevel, wakeup suppression, KSM gating, hibernation disabled
+- [X] Framework 13 power tuning (2026-10): amd_pstate=guided, abmlevel, keyboard wakeup suppression, KSM gating, hibernation disabled
 - [X] Allow TCP/IP forwarding for SSH tunnel foo (`net.ipv4.ip_forward = 1`)
 - [X] Cool Plymouth Boot + Dracut
 - [X] Configure Firewalld zone for Tailscale

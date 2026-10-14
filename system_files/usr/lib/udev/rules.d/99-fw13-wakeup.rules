@@ -1,20 +1,24 @@
 # udev rule — Framework Laptop 13 (AMD) suspend wakeup fix.
 #
 # Problem: the embedded controller on this mainboard emits spurious wake events —
-# closing the lid fires two of them (one from the lid switch, one from a synthetic
-# keyboard event) and plugging in the charger fires a keyboard one. The machine
-# can wake itself to screen-on right after suspending and sit awake (e.g. in a
-# bag), draining the battery.
+# charger/USB-C power events fire a synthetic keyboard event that can wake the
+# machine right after suspending and leave it awake (e.g. in a bag), draining the
+# battery.
 #
-# Effect: disables wakeup for the ACPI lid switch (PNP0C0D) and the AT keyboard
-# controller. Trade-off: the lid and keyboard no longer wake the machine — resume
-# with the power button or the touchpad. This is the standard community fix.
+# Effect: disables wakeup for the AT keyboard controller (serio0). Opening the
+# lid still wakes the machine on purpose — that is how it is normally resumed.
 #
-# Revert: remove this file and rebuild, or `echo enabled > /sys/.../power/wakeup`
-# at runtime to test before deciding (values reset on reboot).
+# Note (2026-10-14): the original version of this rule also targeted the ACPI lid
+# switch (PNP0C0D) with `SUBSYSTEM=="acpi", DRIVERS=="button"`. On current
+# kernels that match never fires — the lid device is `SUBSYSTEM=="platform"`,
+# driver `acpi-button` — so the line was dead code and has been dropped
+# (verified with `udevadm test`; the keyboard half applies correctly).
+#
+# Revert: remove this file and rebuild, or at runtime:
+#   echo enabled > /sys/devices/platform/i8042/serio0/power/wakeup
+# (values reset on reboot).
 #
 # References:
 #   https://community.frame.work/t/tracking-framework-amd-ryzen-7040-series-lid-wakeup-behavior-feedback/39128
 
-ACTION=="add", SUBSYSTEM=="acpi", DRIVERS=="button", ATTRS{hid}=="PNP0C0D", ATTR{power/wakeup}="disabled"
 ACTION=="add", SUBSYSTEM=="serio", DRIVERS=="atkbd", ATTR{power/wakeup}="disabled"
